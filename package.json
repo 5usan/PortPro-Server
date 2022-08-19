@@ -1,0 +1,19 @@
+{
+  "name": "portpro",
+  "version": "1.0.0",
+  "description": "basic login app's server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/5usan/PortPro-Server.git"
+  },
+  "author": "susan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/5usan/PortPro-Server/issues"
+  },
+  "homepage": "https://github.com/5usan/PortPro-Server#readme"
+}
