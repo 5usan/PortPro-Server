@@ -2,10 +2,12 @@
   "name": "portpro",
   "version": "1.0.0",
   "description": "basic login app's server",
-  "main": "server.js",
+  "main": "./src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/server.js"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/5usan/PortPro-Server.git"
@@ -15,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/5usan/PortPro-Server/issues"
   },
-  "homepage": "https://github.com/5usan/PortPro-Server#readme"
+  "homepage": "https://github.com/5usan/PortPro-Server#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
 }
