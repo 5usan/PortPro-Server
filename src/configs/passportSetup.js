@@ -14,11 +14,11 @@ const passportSetup = () => {
       },
       async (accessToken, refreshToken, profile, done) => {
         //passport callback function
-        const currentUser = await User.findOne({
+        const currentUser = await userModel.findOne({
           twitterId: profile._json.id_str,
         });
         if (!currentUser) {
-          const newUser = await new User({
+          const newUser = await new userModel({
             name: profile._json.name,
             screenName: profile._json.screen_name,
             twitterId: profile._json.id_str,
