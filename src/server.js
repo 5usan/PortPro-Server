@@ -1,6 +1,7 @@
 import express from "express";
 import session from "express-session";
 import passport from "passport";
+import cookieSession from "cookie-session";
 import databaseConfig from "./configs/databaseConfig.js";
 import authRouter from "./routes/authRoutes.js";
 import passportSetup from "./configs/passportSetup.js";
@@ -10,19 +11,24 @@ passportSetup();
 
 const app = express();
 
-
 app.use(express.json());
 
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: process.env.COOKIE_KEY,
+  })
+);
+
+app.use(passport.initialize());
+
+app.use(passport.session());
 
 databaseConfig();
 
 app.use("/auth", authRouter);
 
-app.use(session({ secret: "whatever", resave: true, saveUninitialized: true }));
-
-app.use(passport.initialize());
-
-app.use(passport.session()); // persistent login sessions
+// app.use(session({ secret: "keyboard cat" }));
 
 app.get("/", (req, res) => {
   res.send("Port-Pro Running Properly. Have a Wonderful Day.");

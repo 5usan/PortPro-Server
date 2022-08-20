@@ -9,14 +9,11 @@ authRouter.get("/twitter", passport.authenticate("twitter"));
 
 //callback route for twitter to redirect to
 authRouter.get(
-  "/twitter/reqirect",
+  "/twitter/redirect",
   passport.authenticate("twitter", {
     successRedirect: process.env.CLIENT_BASE_URL,
     failureRedirect: "auth/login/failed",
-  }),
-  (req, res) => {
-    res.send("Redirected route");
-  }
+  })
 );
 
 export default authRouter;
