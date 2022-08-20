@@ -4,6 +4,21 @@ import userModel from "../models/userModel.js";
 import "dotenv/config";
 
 const passportSetup = () => {
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser(async (id, done) => {
+    await userModel
+      .findById(id)
+      .then((user) => {
+        done(null, user);
+      })
+      .catch((e) => {
+        done(new Error("Failed to deserialize an user", e));
+      });
+  });
+
   passport.use(
     new Strategy(
       {
