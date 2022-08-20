@@ -1,7 +1,12 @@
+import { errorResponse } from "../helpers/response.js";
+
 export const authCheck = (req, res, next) => {
   if (!req.user) {
-    return res.send("User is not authenticated");
+    return errorResponse({
+      status: 400,
+      message: "User is not authenticated",
+      res,
+    });
   }
   next();
 };
-
