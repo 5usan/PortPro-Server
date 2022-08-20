@@ -16,4 +16,9 @@ authRouter.get(
   })
 );
 
+authRouter.get("/logout", (req, res) => {
+  req.logOut();
+  res.redirect(process.env.CLIENT_BASE_URL);
+});
+
 export default authRouter;

@@ -2,11 +2,12 @@ import express from "express";
 import session from "express-session";
 import passport from "passport";
 import cookieSession from "cookie-session";
+import cookieParser from "cookie-parser";
 import databaseConfig from "./configs/databaseConfig.js";
-import authRouter from "./routes/authRoutes.js";
 import passportSetup from "./configs/passportSetup.js";
-import "dotenv/config";
+import authRouter from "./routes/authRoutes.js";
 import dashboardRouter from "./routes/dashboardRoutes.js";
+import "dotenv/config";
 
 passportSetup();
 
@@ -21,6 +22,8 @@ app.use(
   })
 );
 
+app.use(cookieParser());
+
 app.use(passport.initialize());
 
 app.use(passport.session());
@@ -30,7 +33,9 @@ databaseConfig();
 app.use("/auth", authRouter);
 app.use("/dashboard", dashboardRouter);
 
-// app.use(session({ secret: "keyboard cat" }));
+app.use(
+  session({ secret: "keyboard cat", key: "sid", cookie: { secure: true } })
+);
 
 app.get("/", (req, res) => {
   res.send("Port-Pro Running Properly. Have a Wonderful Day.");
