@@ -6,6 +6,7 @@ import databaseConfig from "./configs/databaseConfig.js";
 import authRouter from "./routes/authRoutes.js";
 import passportSetup from "./configs/passportSetup.js";
 import "dotenv/config";
+import dashboardRouter from "./routes/dashboardRoutes.js";
 
 passportSetup();
 
@@ -27,6 +28,7 @@ app.use(passport.session());
 databaseConfig();
 
 app.use("/auth", authRouter);
+app.use("/dashboard", dashboardRouter);
 
 // app.use(session({ secret: "keyboard cat" }));
 
