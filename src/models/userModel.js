@@ -4,6 +4,12 @@ export default mongoose.model(
   "User",
   mongoose.Schema(
     {
+      email: {
+        type: String,
+      },
+      password: {
+        type: String,
+      },
       name: {
         type: String,
       },
