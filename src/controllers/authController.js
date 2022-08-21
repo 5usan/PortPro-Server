@@ -1,11 +1,11 @@
 import { errorResponse, okResponse } from "../helpers/response.js";
 import userModel from "../models/userModel.js";
-import "dotenv/config";
 import {
   bodyValidator,
   emptyBodyValidator,
   emptyFieldValidator,
 } from "../helpers/validator.js";
+import "dotenv/config";
 
 export const login = async (req, res) => {
   try {
@@ -57,6 +57,16 @@ export const signup = async (req, res) => {
         res,
       });
     }
+    const alreadyExist = await userModel.findOne({
+      email,
+    });
+    if (alreadyExist) {
+      return errorResponse({
+        status: 400,
+        message: "Email already exists",
+        res,
+      });
+    }
     let data = await new userModel({
       email,
       password,
@@ -64,7 +74,7 @@ export const signup = async (req, res) => {
 
     if (!data) {
       return errorResponse({
-        status: 200,
+        status: 400,
         message: "User cannot be created",
         res,
       });
