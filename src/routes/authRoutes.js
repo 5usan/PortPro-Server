@@ -6,6 +6,9 @@ import { login, signup } from "../controllers/authController.js";
 const authRouter = Router();
 
 authRouter.post("/login", login);
+authRouter.get("/login", (req, res) => {
+  res.send("hi");
+});
 
 authRouter.post("/signup", signup);
 

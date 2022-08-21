@@ -69,7 +69,15 @@ export const signup = async (req, res) => {
         res,
       });
     }
-    return okResponse({ status: 400, data: { message: "User created" } }, res);
+    return okResponse({
+      status: 200,
+      data: {
+        email: data.email,
+        token: "Bearer " + process.env.USER_TOKEN,
+        message: "Login Successful",
+      },
+      res,
+    });
   } catch (err) {
     errorResponse({ status: 500, message: err.message, res });
   }

@@ -3,6 +3,7 @@ import session from "express-session";
 import passport from "passport";
 import cookieSession from "cookie-session";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import databaseConfig from "./configs/databaseConfig.js";
 import passportSetup from "./configs/passportSetup.js";
 import authRouter from "./routes/authRoutes.js";
@@ -14,6 +15,8 @@ passportSetup();
 const app = express();
 
 app.use(express.json());
+
+app.set("trust proxy", 1);
 
 app.use(
   cookieSession({
@@ -28,13 +31,28 @@ app.use(passport.initialize());
 
 app.use(passport.session());
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  })
+);
+
 databaseConfig();
 
 app.use("/auth", authRouter);
 app.use("/dashboard", dashboardRouter);
 
 app.use(
-  session({ secret: "keyboard cat", key: "sid", cookie: { secure: true } })
+  session({
+    secret: "some secret",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      secure: "auto",
+    },
+  })
 );
 
 app.get("/", (req, res) => {
